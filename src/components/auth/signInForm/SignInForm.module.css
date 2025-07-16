@@ -1,0 +1,195 @@
+.form-container {
+  max-width: 400px;
+  margin: auto;
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  font-family: 'Poppins', sans-serif;
+}
+
+.heading {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+  color: #0f172a;
+  text-align: center;
+}
+
+.subheading {
+  font-size: 0.95rem;
+  color: #475569;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.register {
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.register span {
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.social-row {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.icon {
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.icon:hover {
+  transform: scale(1.1);
+}
+
+.divider-text {
+  font-size: 0.9rem;
+  color: #64748b;
+  position: relative;
+  text-align: center;
+  margin: 1.5rem 0;
+}
+
+.divider-text::before,
+.divider-text::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 40%;
+  height: 1px;
+  background: #cbd5e1;
+}
+
+.divider-text::before {
+  left: 0;
+  transform: translateY(-50%);
+}
+
+.divider-text::after {
+  right: 0;
+  transform: translateY(-50%);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #4b5563;
+}
+
+:global([data-theme="dark"]) .label {
+  color: #e5e7eb;
+}
+
+.input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.75rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border 0.2s;
+  background-color: #fff;
+  color: #0f172a;
+}
+
+.input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.75rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border 0.2s;
+  background-color: #fff;
+  color: #0f172a;
+}
+
+.password-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.password-wrapper .input {
+  width: 100%;
+  padding-right: 2.5rem; /* space for eye icon */
+  box-sizing: border-box;
+}
+
+.password-wrapper .input {
+  width: 100%;
+  padding-right: 2.5rem; /* space for eye icon */
+  box-sizing: border-box;
+}
+
+
+.input:focus {
+  border-color: #2563eb;
+}
+
+.password-wrapper {
+  position: relative;
+}
+
+.password-wrapper .input {
+  padding-right: 2.5rem; /* for eye icon spacing */
+}
+
+.toggle-icon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 1rem;
+  color: #64748b;
+  transition: color 0.2s;
+}
+
+.toggle-icon:hover {
+  color: #2563eb;
+}
+
+.forgot-link {
+  font-size: 0.85rem;
+  text-align: right;
+  color: #2563eb;
+  text-decoration: none;
+  display: block;
+  margin-top: -0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.submit-button {
+  background: #2563eb;
+  color: #fff;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.submit-button:hover {
+  background: #1e40af;
+}
