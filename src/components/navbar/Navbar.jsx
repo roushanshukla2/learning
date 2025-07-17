@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import logo from "../../assets/images/logo.webp";
 import arrowLight from "../../assets/images/arrow.svg";
@@ -13,13 +13,36 @@ import { ThemeContext } from "../themeContext/ThemeContext";
 const Navbar = ({ onSignInClick }) => {
   const { isDark } = useContext(ThemeContext);
   const arrow = isDark ? arrowDark : arrowLight;
+  const [menuOpen, setMenuOpen] = useState(false);
   const [searchValue, setSearchValue] = useState("");
+
+  const navigate = useNavigate();
 
   const handleSearchChange = (e) => setSearchValue(e.target.value);
   const handleSearchSubmit = (e) => {
     e.preventDefault();
     console.log("Search:", searchValue);
   };
+
+  const toggleMenu = () => setMenuOpen((prev) => !prev);
+
+  const handleNavClick = (e, path) => {
+    const isMobile = window.innerWidth <= 1100;
+    if (isMobile && menuOpen) {
+      e.stopPropagation();
+      navigate(path);
+      setMenuOpen(false);
+    }
+  };
+
+  const navItems = [
+    { name: "Courses", dropdown: ["HTML", "Java", "JavaScript"] },
+    { name: "Exercises", dropdown: ["C++", "CSS", "Java"] },
+    { name: "Tutorials", dropdown: ["AI & ML", "Node.js", "Python"] },
+    { name: "Jobs", dropdown: ["Frontend Developer", "UI Engineer", "Internships"] },
+    { name: "Interview", dropdown: ["Questions", "Tips", "Resources"] },
+
+  ];
 
   return (
     <div className={styles["navbar-container"]}>
@@ -28,53 +51,56 @@ const Navbar = ({ onSignInClick }) => {
           <img src={logo} alt="Logo" className={styles["logo"]} />
         </Link>
 
-        <ul className={styles["nav-menu"]}>
-          <li className={styles["nav-item"]}>
-            Courses
-            <img src={arrow} alt="Arrow" className={styles["arrow"]} />
-            <div className={styles["dropdown"]}>
-              <ul>
-                <li>HTML</li>
-                <li>Java</li>
-                <li>JavaScript</li>
-              </ul>
+        <div
+          className={`${styles["hamburger"]} ${menuOpen ? styles["active"] : ""} ${
+            isDark ? styles["hamburger-dark"] : styles["hamburger-light"]
+          }`}
+          onClick={toggleMenu}
+        >
+          <span className={styles["bar"]}></span>
+          <span className={styles["bar"]}></span>
+          <span className={styles["bar"]}></span>
+        </div>
+
+        <ul className={`${styles["nav-menu"]} ${menuOpen ? styles["nav-menu-open"] : ""}`}>
+          {navItems.map((item, index) => (
+            <li
+              key={index}
+              className={styles["nav-item"]}
+              onClick={(e) => handleNavClick(e, `/${item.name.toLowerCase()}`)}
+            >
+              {item.name}
+              <img src={arrow} alt="Arrow" className={styles["arrow"]} />
+              <div className={styles["dropdown"]}>
+                <ul>
+                  {item.dropdown.map((sub, idx) => (
+                    <li key={idx}>{sub}</li>
+                  ))}
+                </ul>
+              </div>
+            </li>
+          ))}
+
+          {/* Mobile Bottom Actions only inside hamburger */}
+          {menuOpen && (
+            <div className={styles["mobile-actions"]}>
+              <button
+                className={`${styles["signin-button"]} ${
+                  isDark ? styles["signin-dark"] : styles["signin-light"]
+                }`}
+                onClick={() => {
+                  onSignInClick();
+                  setMenuOpen(false);
+                }}
+              >
+                Sign In
+              </button>
+              <DarkModeToggle />
             </div>
-          </li>
-          <li className={styles["nav-item"]}>
-            Exercises
-            <img src={arrow} alt="Arrow" className={styles["arrow"]} />
-            <div className={styles["dropdown"]}>
-              <ul>
-                <li>C++</li>
-                <li>CSS</li>
-                <li>Java</li>
-              </ul>
-            </div>
-          </li>
-          <li className={styles["nav-item"]}>
-            Tutorials
-            <img src={arrow} alt="Arrow" className={styles["arrow"]} />
-            <div className={styles["dropdown"]}>
-              <ul>
-                <li>AI & ML</li>
-                <li>Node.js</li>
-                <li>Python</li>
-              </ul>
-            </div>
-          </li>
-          <li className={styles["nav-item"]}>
-            Jobs
-            <img src={arrow} alt="Arrow" className={styles["arrow"]} />
-            <div className={styles["dropdown"]}>
-              <ul>
-                <li>Frontend Developer @ BhoomiTech</li>
-                <li>UI Engineer @ BhoomiTech</li>
-                <li>Internships @ BhoomiTech</li>
-              </ul>
-            </div>
-          </li>
+          )}
         </ul>
 
+        {/* Desktop Navbar Actions */}
         <div className={styles["navbar-actions"]}>
           <form onSubmit={handleSearchSubmit} className={styles["search-form"]}>
             <input
